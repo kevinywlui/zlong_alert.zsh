@@ -23,7 +23,15 @@ source /path/to/zlong_alert.zsh
 
 ---
 
+## Configuration
+
+There are 2 variables you can set that will alter the behavior this script.
+
+- `zlong_duration` (default: `15`): number of seconds that is considered a long duration.
+- `zlong_ignore_cmds` (default: `vim ssh`): commands to ignore.
+
 ## Credit
 
 This script is the result of me trying to understand and emulate this gist:
-<https://gist.github.com/jpouellet/5278239>
+<https://gist.github.com/jpouellet/5278239> My version fixes some things
+(possibly bugs?) that I did not like about the original version.
