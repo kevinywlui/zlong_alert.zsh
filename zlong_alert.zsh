@@ -4,7 +4,7 @@ zmodload zsh/datetime || return
 # Be sure we can actually set hooks
 autoload -Uz add-zsh-hook || return
 
-if [[ -x "$(command -v notify-send)" ]]; then
+if ! [[ -x "$(command -v notify-send)" ]]; then
   echo 'Error: notify-send is not installed.' >&2
 fi
 
