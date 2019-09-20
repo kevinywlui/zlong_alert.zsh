@@ -30,7 +30,7 @@ There are 2 variables you can set that will alter the behavior this script.
 - `zlong_duration` (default: `15`): number of seconds that is considered a long duration.
 - `zlong_ignore_cmds` (default: `"vim ssh"`): commands to ignore.
 
-For example,
+For example, adding the following anywhere in your `.zshrc`
 ```bash
 zlong_duration=2
 zlong_ignore_cmds="vim ssh pacman yay"
