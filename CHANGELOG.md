@@ -1,5 +1,9 @@
 # Changelog
 
+## [0.2.1] - 2019-09-26
+### Changed
+- CHANGELOG renamed to CHANGELOG.md
+
 ## [0.2.0] - 2019-09-26
 ### Added
 - A pointer to this file from the README

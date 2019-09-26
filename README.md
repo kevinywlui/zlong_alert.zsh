@@ -43,7 +43,7 @@ pacman yay`.
 
 ## Changelog
 
-See [CHANGELOG](./CHANGELOG)
+See [CHANGELOG](./CHANGELOG.md)
 
 ## Credit
 
