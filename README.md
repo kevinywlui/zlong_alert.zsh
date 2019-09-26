@@ -38,6 +38,10 @@ zlong_ignore_cmds="vim ssh pacman yay"
 will alert you if a command has lasted for more than 2 seconds, provided that
 the command does not start with any of `vim ssh pacman yay`.
 
+## Changelog
+
+See [CHANGELOG](./CHANGELOG)
+
 ## Credit
 
 This script is the result of me trying to understand and emulate this gist:
