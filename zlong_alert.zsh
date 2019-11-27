@@ -29,7 +29,7 @@ zlong_alert_func() {
     if [[ "$zlong_use_notify_send" == true ]]; then
         notify-send "Done: $1" "Time: $ftime"
     fi
-    echo "\a"
+    echo -n "\a"
 }
 
 zlong_alert_pre() {
