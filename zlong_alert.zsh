@@ -38,7 +38,7 @@ zlong_alert_func() {
 zlong_alert_pre() {
     zlong_last_cmd=$1
 
-    if [[ $zlong_ignorespace == 'true' && ${zlong_last_cmd:0:1} == ' ' ]]; then
+    if [[ $zlong_ignorespace == 'true' && ${zlong_last_cmd:0:1} == [[:space:]] ]]; then
         # set internal variables to nothing ignoring this command
         zlong_last_cmd=''
         zlong_timestamp=0
