@@ -43,8 +43,6 @@ zlong_alert_pre() {
         zlong_last_cmd=''
         zlong_timestamp=0
     else
-        # clean up white space so the notify output is nice
-        zlong_last_cmd="$(echo "$1" | sed -e 's|^\s\+||' -e 's|\s\s\+|\s|')"
         zlong_timestamp=$EPOCHSECONDS
     fi
 
