@@ -16,6 +16,9 @@ fi
 # Set commands to ignore if needed
 (( ${+zlong_ignore_cmds} )) || zlong_ignore_cmds='vim ssh'
 
+# Set as true to ignore commands starting with a space
+(( ${+zlong_ignorespace} )) || zlong_ignorespace='false'
+
 
 # Need to set an initial timestamps otherwise, we'll be comparing an empty
 # string with an integer.
@@ -33,8 +36,18 @@ zlong_alert_func() {
 }
 
 zlong_alert_pre() {
-    zlong_timestamp=$EPOCHSECONDS
     zlong_last_cmd=$1
+
+    if [[ $zlong_ignorespace == 'true' && ${zlong_last_cmd:0:1} == ' ' ]]; then
+        # set internal variables to nothing ignoring this command
+        zlong_last_cmd=''
+        zlong_timestamp=0
+    else
+        # clean up white space so the notify output is nice
+        zlong_last_cmd="$(echo "$1" | sed -e 's|^\s\+||' -e 's|\s\s\+|\s|')"
+        zlong_timestamp=$EPOCHSECONDS
+    fi
+
 }
 
 zlong_alert_post() {
