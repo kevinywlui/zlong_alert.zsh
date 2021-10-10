@@ -6,7 +6,7 @@ autoload -Uz add-zsh-hook || return
 
 # Disable notifications if both alerter and notify-send don't exist
 if ! ([[ -x "$(command -v notify-send)" ]] || [[ -x "$(command -v alerter)" ]]); then
-    zlong_use_notify_send='false'
+    zlong_send_notifications='false'
 fi
 
 # Define a long duration if needed
@@ -29,7 +29,7 @@ zlong_alert_func() {
     local secs=$2
     local ftime=$(printf '%dh:%dm:%ds\n' $(($secs / 3600)) $(($secs % 3600 / 60)) $(($secs % 60)))
     local message="Done: $1 Time: $ftime"
-    if [[ "$zlong_use_notify_send" != false ]]; then
+    if [[ "$zlong_send_notifications" != false ]]; then
         # Find and use the correct notification command based on OS name
         if [[ "${uname}" == "Linux" ]]
         then

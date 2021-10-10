@@ -34,16 +34,16 @@ There are 4 variables you can set that will alter the behavior this script.
 
 - `zlong_duration` (default: `15`): number of seconds that is considered a long duration.
 - `zlong_ignore_cmds` (default: `"vim ssh"`): commands to ignore.
-- `zlong_use_notify_send` (default: `true`): whether to use `notify-send`.
+- `zlong_send_notifications` (default: `true`): whether to send notifications.
 - `zlong_ignorespace` (default: `false`): whether to ignore commands with a leading space
 
 For example, adding the following anywhere in your `.zshrc`
 ```bash
-zlong_use_notify_send=false
+zlong_send_notifications=false
 zlong_duration=2
 zlong_ignore_cmds="vim ssh pacman yay"
 ```
-will alert you, without using `notify-send`, if a command has lasted for more
+will alert you, without sending a notification, if a command has lasted for more
 than 2 seconds, provided that the command does not start with any of `vim ssh
 pacman yay`.
 
