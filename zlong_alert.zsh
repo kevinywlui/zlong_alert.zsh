@@ -4,12 +4,6 @@ zmodload zsh/datetime || return
 # Be sure we can actually set hooks
 autoload -Uz add-zsh-hook || return
 
-# Use notify-send if it exists and is not explicitly disabled
-if ! [[ -x "$(command -v notify-send)" ]]; then
-    zlong_use_notify_send='false'
-fi
-(( ${+zlong_use_notify_send} )) || zlong_use_notify_send='true'
-
 # Define a long duration if needed
 (( ${+zlong_duration} )) || zlong_duration=15
 
@@ -29,8 +23,15 @@ zlong_alert_func() {
     local cmd=$1
     local secs=$2
     local ftime=$(printf '%dh:%dm:%ds\n' $(($secs / 3600)) $(($secs % 3600 / 60)) $(($secs % 60)))
-    if [[ "$zlong_use_notify_send" == true ]]; then
-        notify-send "Done: $1" "Time: $ftime"
+    local message="Done: $1 Time: $ftime"
+    if [[ "$zlong_use_notify_send" != false ]]; then
+        # Find and use the correct notification command based on OS name
+        if [[ "${uname}" == "Linux" ]]
+        then
+            notify-send $message
+        else
+            (alerter -timeout 3 -message $message &>/dev/null &)
+        fi
     fi
     echo -n "\a"
 }
