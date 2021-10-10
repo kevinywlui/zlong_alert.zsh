@@ -4,6 +4,11 @@ zmodload zsh/datetime || return
 # Be sure we can actually set hooks
 autoload -Uz add-zsh-hook || return
 
+# Disable notifications if both alerter and notify-send don't exist
+if ! ([[ -x "$(command -v notify-send)" ]] || [[ -x "$(command -v alerter)" ]]); then
+    zlong_use_notify_send='false'
+fi
+
 # Define a long duration if needed
 (( ${+zlong_duration} )) || zlong_duration=15
 
