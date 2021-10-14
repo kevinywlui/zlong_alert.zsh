@@ -1,12 +1,18 @@
 # zlong_alert.zsh
 
-`zlong_alert.zsh` will use `notify-send` and a
+`zlong_alert.zsh` will send a desktop notification and sound a
 [bell](https://en.wikipedia.org/wiki/Bell_character) to alert you when a
 command that has taken a long time (default: 15 seconds) has completed.
+
+Desktop notifications are sent using `notify-send` on Linux and using [`alerter`](https://github.com/vjeantet/alerter) on MacOS.
 
 ---
 
 ## Installation
+
+### Pre-requisite for MacOS only
+
+Ensure that you downloaded the alerter binary from [here](https://github.com/vjeantet/alerter/releases), have placed it in your PATH, and given the file executable permissions before continuing with any of the installation methods.
 
 ### zplug
 
