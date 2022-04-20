@@ -37,7 +37,7 @@ zlong_alert_func() {
     local message="Done: $1 Time: $ftime"
     if [[ "$zlong_internal_send_notifications" != false ]]; then
         # Find and use the correct notification command based on OS name
-        if [[ "${uname}" == "Linux" ]]
+        if [[ "$OSTYPE" == "linux-gnu" ]]
         then
             notify-send $message
         else
