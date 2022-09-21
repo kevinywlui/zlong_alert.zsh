@@ -25,7 +25,7 @@ fi
 (( ${+zlong_ignorespace} )) || zlong_ignorespace='false'
 
 # Define a custom message to display
-(( ${+zlong_message} )) || zlong_message='Done $1 Time: $ftime'
+(( ${+zlong_message} )) || zlong_message='Done "$1" Time: "$ftime"'
 
 # Need to set an initial timestamps otherwise, we'll be comparing an empty
 # string with an integer.
@@ -39,9 +39,9 @@ zlong_alert_func() {
     if [[ "$zlong_internal_send_notifications" != false ]]; then
         # Find and use the correct notification command based on OS name
         if [[ "$OSTYPE" == "linux-gnu"* ]]; then
-	    eval notify-send "$zlong_message"
+	    eval notify-send $zlong_message
         elif [[ "$OSTYPE" == "darwin"* ]]; then
-            (alerter -timeout 3 -message "$zlong_message" &>/dev/null &)
+            (alerter -timeout 3 -message $zlong_message &>/dev/null &)
         fi
     fi
     echo -n "\a"
