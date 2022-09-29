@@ -25,7 +25,7 @@ fi
 (( ${+zlong_ignorespace} )) || zlong_ignorespace='false'
 
 # Define a custom message to display
-(( ${+zlong_message} )) || zlong_message='"Done: $1 Time: $ftime"'
+(( ${+zlong_message} )) || zlong_message='"Done: $cmd Time: $ftime"'
 
 # Need to set an initial timestamps otherwise, we'll be comparing an empty
 # string with an integer.
