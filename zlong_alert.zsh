@@ -24,6 +24,8 @@ fi
 # Set as true to ignore commands starting with a space
 (( ${+zlong_ignorespace} )) || zlong_ignorespace='false'
 
+# Define a custom message to display
+(( ${+zlong_message} )) || zlong_message='"Done: $cmd Time: $ftime"'
 
 # Need to set an initial timestamps otherwise, we'll be comparing an empty
 # string with an integer.
@@ -34,13 +36,12 @@ zlong_alert_func() {
     local cmd=$1
     local secs=$2
     local ftime=$(printf '%dh:%dm:%ds\n' $(($secs / 3600)) $(($secs % 3600 / 60)) $(($secs % 60)))
-    local message="Done: $1 Time: $ftime"
     if [[ "$zlong_internal_send_notifications" != false ]]; then
         # Find and use the correct notification command based on OS name
         if [[ "$OSTYPE" == "linux-gnu"* ]]; then
-            notify-send $message
+	    eval notify-send $zlong_message
         elif [[ "$OSTYPE" == "darwin"* ]]; then
-            (alerter -timeout 3 -message $message &>/dev/null &)
+            (alerter -timeout 3 -message $zlong_message &>/dev/null &)
         fi
     fi
     echo -n "\a"

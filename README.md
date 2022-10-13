@@ -42,6 +42,7 @@ There are 4 variables you can set that will alter the behavior this script.
 - `zlong_ignore_cmds` (default: `"vim ssh"`): commands to ignore.
 - `zlong_send_notifications` (default: `true`): whether to send notifications.
 - `zlong_ignorespace` (default: `false`): whether to ignore commands with a leading space
+- `zlong_message` (default: `'"Done: $cmd Time: $ftime"'`): define a custom message to display
 
 For example, adding the following anywhere in your `.zshrc`
 ```bash
@@ -52,6 +53,20 @@ zlong_ignore_cmds="vim ssh pacman yay"
 will alert you, without sending a notification, if a command has lasted for more
 than 2 seconds, provided that the command does not start with any of `vim ssh
 pacman yay`.
+
+### zlong_message
+
+`zlong_message` requires very specific syntax in order to function correctly.
+Arguments passed must be wrapped in single quotes and then doubles quotes in order
+for the variables to be passed in correctly to the evaluation function. Currently,
+the variables `$cmd` and `$ftime` are available to be included in your `zlong_message`
+definition. Some notification clients (i.e. notify-send) allow both a heading and
+a body message to be passed. Examples of how to do so are below:
+
+```bash
+zlong_message='"Done: $cmd Time: $ftime"'
+zlong_message='"Finished ($ftime)" "$cmd"'
+```
 
 ## Changelog
 
