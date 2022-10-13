@@ -38,7 +38,7 @@ zlong_alert_func() {
     if [[ "$zlong_internal_send_notifications" != false ]]; then
         # Find and use the correct notification command based on OS name
         if [[ "$OSTYPE" == "linux-gnu"* ]]; then
-            notify-send $message
+            notify-send "$message"
         elif [[ "$OSTYPE" == "darwin"* ]]; then
             (alerter -timeout 3 -message $message &>/dev/null &)
         fi
