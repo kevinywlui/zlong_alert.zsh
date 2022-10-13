@@ -25,7 +25,7 @@ zplug "kevinywlui/zlong_alert.zsh"
 1. Clone into `$ZSH_CUSTOM/plugins/zlong_alert`.
 2. Add `zlong_alert` to `plugins` in `.zshrc`.
 
-### Manual 
+### Manual
 
 This script just needs to be sourced so add this to your `.zshrc`:
 ```bash
@@ -56,15 +56,17 @@ pacman yay`.
 
 ### zlong_message
 
-`zlong_message` requires very specific syntax in order to function correctly.
-Arguments passed must be wrapped in single quotes and then doubles quotes in order
-for the variables to be passed in correctly to the evaluation function. Currently,
-the variables `$cmd` and `$ftime` are available to be included in your `zlong_message`
-definition. Some notification clients (i.e. notify-send) allow both a heading and
-a body message to be passed. Examples of how to do so are below:
+`zlong_message` will be expanded in to individual arguments to be passed to the alert command. The arguments must be wrapped in single quotes so not to evaluate the variables to early.
+
+Currently, the variables `$cmd` and `$ftime` are available to be included in your `zlong_message` definition.
+
+Note for linux:
+`notify-send` allows both a heading and a body to be passed but will throw an error on a third argument (Invalid number of options.). Examples of how to do so are below:
 
 ```bash
+# just a body
 zlong_message='"Done: $cmd Time: $ftime"'
+# a header and body
 zlong_message='"Finished ($ftime)" "$cmd"'
 ```
 
