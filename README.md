@@ -29,7 +29,7 @@ zplug "kevinywlui/zlong_alert.zsh"
 
 Add in your `~/.zimrc`:
 ```bash
-zmodule "kevinywlui/zlong_alert.zsh" --source zlong_alert.zsh
+zmodule "kevinywlui/zlong_alert.zsh" --name zlong_alert
 ```
 
 ### Manual 
