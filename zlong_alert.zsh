@@ -64,8 +64,8 @@ zlong_alert_post() {
     local duration=$(($EPOCHSECONDS - $zlong_timestamp))
     local lasted_long=$(($duration - $zlong_duration))
     local cmd_head="${zlong_last_cmd/ */}"
-    if [[ $lasted_long -gt 0 && ! -z $zlong_last_cmd && ! $zlong_ignore_cmds =~ (^|[[:space:]])${cmd_head}([[:space:]]|$) ]]; then
-        zlong_alert_func $zlong_last_cmd duration
+    if [[ $lasted_long -gt 0 && ! -z $zlong_last_cmd && ! "$zlong_ignore_cmds" =~ (^|[[:space:]])${cmd_head}([[:space:]]|$) ]]; then
+        zlong_alert_func "$zlong_last_cmd" duration
     fi
     zlong_last_cmd=''
 }
