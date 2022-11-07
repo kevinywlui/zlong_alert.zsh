@@ -58,6 +58,10 @@ zlong_alert_pre() {
         zlong_timestamp=$EPOCHSECONDS
     fi
 
+    # Remove leading space(s), not useful anymore
+    while [[ ${zlong_last_cmd:0:1} == [[:space:]] ]]; do
+	zlong_last_cmd="${zlong_last_cmd:1}"
+    done
 }
 
 zlong_alert_post() {
