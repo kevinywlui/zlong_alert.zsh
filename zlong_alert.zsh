@@ -15,6 +15,9 @@ if ! ([[ -x "$(command -v notify-send)" ]] || [[ -x "$(command -v alerter)" ]]);
     zlong_internal_send_notifications='false'
 fi
 
+# Set as true to enable terminal bell (beep)
+(( ${+zlong_terminal_bell} )) || zlong_terminal_bell='true'
+
 # Define a long duration if needed
 (( ${+zlong_duration} )) || zlong_duration=15
 
@@ -44,7 +47,10 @@ zlong_alert_func() {
             (alerter -timeout 3 -message $zlong_message &>/dev/null &)
         fi
     fi
-    echo -n "\a"
+
+    if [[ "$zlong_terminal_bell" == 'true' ]]; then
+	echo -n "\a"
+    fi
 }
 
 zlong_alert_pre() {
