@@ -46,7 +46,7 @@ source /path/to/zlong_alert.zsh
 There are 7 variables you can set that will alter the behavior this script.
 
 - `zlong_duration` (default: `15`): number of seconds that is considered a long duration.
-- `zlong_ignore_cmds` (default: `"vim ssh"`): commands to ignore (no not notify).
+- `zlong_ignore_cmds` (default: `"vim ssh"`): commands to ignore (do not notify).
 - `zlong_ignore_pfxs` (default: `"sudo time"`): prefixes to ignore (consider command in argument).
 - `zlong_send_notifications` (default: `true`): whether to send notifications.
 - `zlong_terminal_bell` (default: `true`): whether to enable the terminal bell.
