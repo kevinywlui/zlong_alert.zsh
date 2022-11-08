@@ -64,14 +64,18 @@ zlong_alert_pre() {
         zlong_timestamp=$EPOCHSECONDS
     fi
 
+    # Remove leading space(s), not useful anymore
+    while [[ ${zlong_last_cmd:0:1} == [[:space:]] ]]; do
+	zlong_last_cmd="${zlong_last_cmd:1}"
+    done
 }
 
 zlong_alert_post() {
     local duration=$(($EPOCHSECONDS - $zlong_timestamp))
     local lasted_long=$(($duration - $zlong_duration))
-    local cmd_head=$(echo "$zlong_last_cmd" | awk '{printf $1}')
-    if [[ $lasted_long -gt 0 && ! -z $zlong_last_cmd && ! $zlong_ignore_cmds =~ $cmd_head ]]; then
-        zlong_alert_func $zlong_last_cmd duration
+    local cmd_head="${zlong_last_cmd%% *}"
+    if [[ $lasted_long -gt 0 && ! -z $zlong_last_cmd && ! "$zlong_ignore_cmds" =~ (^|[[:space:]])${cmd_head}([[:space:]]|$) ]]; then
+        zlong_alert_func "$zlong_last_cmd" duration
     fi
     zlong_last_cmd=''
 }

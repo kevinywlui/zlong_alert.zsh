@@ -25,6 +25,13 @@ zplug "kevinywlui/zlong_alert.zsh"
 1. Clone into `$ZSH_CUSTOM/plugins/zlong_alert`.
 2. Add `zlong_alert` to `plugins` in `.zshrc`.
 
+### Zim
+
+Add in your `~/.zimrc`:
+```bash
+zmodule "kevinywlui/zlong_alert.zsh" --name zlong_alert
+```
+
 ### Manual 
 
 This script just needs to be sourced so add this to your `.zshrc`:
