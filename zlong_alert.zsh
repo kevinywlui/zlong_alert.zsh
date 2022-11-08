@@ -80,19 +80,19 @@ zlong_alert_post() {
 
     # Ignore command prefixes (like time and sudo)
     # and then consider command in argument
-    local zlong_last_cmd_no_pfx="$zlong_last_cmd"
+    local last_cmd_no_pfx="$zlong_last_cmd"
     local no_pfx
-    while [[ -n "$zlong_last_cmd_no_pfx" && -z "$no_pfx" ]]; do
- 	cmd_head="${zlong_last_cmd_no_pfx%% *}"
+    while [[ -n "$last_cmd_no_pfx" && -z "$no_pfx" ]]; do
+ 	cmd_head="${last_cmd_no_pfx%% *}"
 	if [[ $zlong_ignore_pfxs =~ (^|[[:space:]])${cmd_head}([[:space:]]|$) ]]; then
-	    zlong_last_cmd_no_pfx="${zlong_last_cmd_no_pfx#* }"
+	    last_cmd_no_pfx="${last_cmd_no_pfx#* }"
 	else
 	    no_pfx=true
 	fi
     done
 
     # Notify only if delay > $zlong_duration and command not ignored
-    if [[ $lasted_long -gt 0 && ! -z $zlong_last_cmd_no_pfx && ! "$zlong_ignore_cmds" =~ (^|[[:space:]])${cmd_head}([[:space:]]|$) ]]; then
+    if [[ $lasted_long -gt 0 && ! -z $last_cmd_no_pfx && ! "$zlong_ignore_cmds" =~ (^|[[:space:]])${cmd_head}([[:space:]]|$) ]]; then
         zlong_alert_func "$zlong_last_cmd" duration
     fi
     zlong_last_cmd=''
