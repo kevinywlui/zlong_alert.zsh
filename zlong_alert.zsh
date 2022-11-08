@@ -21,10 +21,10 @@ fi
 # Define a long duration if needed
 (( ${+zlong_duration} )) || zlong_duration=15
 
-# Set commands to ignore if needed
+# Set commands to ignore (do not notify) if needed
 (( ${+zlong_ignore_cmds} )) || zlong_ignore_cmds='vim ssh'
 
-# Set prefixes to ignore if needed
+# Set prefixes to ignore (consider command in argument) if needed
 (( ${+zlong_ignore_pfxs} )) || zlong_ignore_pfxs='sudo time'
 
 # Set as true to ignore commands starting with a space
