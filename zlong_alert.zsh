@@ -21,8 +21,11 @@ fi
 # Define a long duration if needed
 (( ${+zlong_duration} )) || zlong_duration=15
 
-# Set commands to ignore if needed
+# Set commands to ignore (do not notify) if needed
 (( ${+zlong_ignore_cmds} )) || zlong_ignore_cmds='vim ssh'
+
+# Set prefixes to ignore (consider command in argument) if needed
+(( ${+zlong_ignore_pfxs} )) || zlong_ignore_pfxs='sudo time'
 
 # Set as true to ignore commands starting with a space
 (( ${+zlong_ignorespace} )) || zlong_ignorespace='false'
@@ -73,8 +76,23 @@ zlong_alert_pre() {
 zlong_alert_post() {
     local duration=$(($EPOCHSECONDS - $zlong_timestamp))
     local lasted_long=$(($duration - $zlong_duration))
-    local cmd_head="${zlong_last_cmd%% *}"
-    if [[ $lasted_long -gt 0 && ! -z $zlong_last_cmd && ! "$zlong_ignore_cmds" =~ (^|[[:space:]])${cmd_head}([[:space:]]|$) ]]; then
+    local cmd_head
+
+    # Ignore command prefixes (like time and sudo)
+    # and then consider command in argument
+    local last_cmd_no_pfx="$zlong_last_cmd"
+    local no_pfx
+    while [[ -n "$last_cmd_no_pfx" && -z "$no_pfx" ]]; do
+ 	cmd_head="${last_cmd_no_pfx%% *}"
+	if [[ $zlong_ignore_pfxs =~ (^|[[:space:]])${cmd_head}([[:space:]]|$) ]]; then
+	    last_cmd_no_pfx="${last_cmd_no_pfx#* }"
+	else
+	    no_pfx=true
+	fi
+    done
+
+    # Notify only if delay > $zlong_duration and command not ignored
+    if [[ $lasted_long -gt 0 && ! -z $last_cmd_no_pfx && ! "$zlong_ignore_cmds" =~ (^|[[:space:]])${cmd_head}([[:space:]]|$) ]]; then
         zlong_alert_func "$zlong_last_cmd" duration
     fi
     zlong_last_cmd=''
