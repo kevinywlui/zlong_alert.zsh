@@ -66,11 +66,6 @@ zlong_alert_pre() {
     else
         zlong_timestamp=$EPOCHSECONDS
     fi
-
-    # Remove leading space(s), not useful anymore
-    while [[ ${zlong_last_cmd:0:1} == [[:space:]] ]]; do
-	zlong_last_cmd="${zlong_last_cmd:1}"
-    done
 }
 
 zlong_alert_post() {
@@ -78,9 +73,8 @@ zlong_alert_post() {
     local lasted_long=$(($duration - $zlong_duration))
     local cmd_head
 
-    # Ignore command prefixes (like time and sudo)
-    # and then consider command in argument
-    local last_cmd_no_pfx="$zlong_last_cmd"
+    # Ignore leading spaces (-L) and command prefixes (like time and sudo)
+    typeset -L last_cmd_no_pfx="$zlong_last_cmd"
     local no_pfx
     while [[ -n "$last_cmd_no_pfx" && -z "$no_pfx" ]]; do
  	cmd_head="${last_cmd_no_pfx%% *}"
