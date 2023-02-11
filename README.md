@@ -22,7 +22,14 @@ zplug "kevinywlui/zlong_alert.zsh"
 
 ### Oh My Zsh
 
-1. Clone into `$ZSH_CUSTOM/plugins/zlong_alert`.
+1. Download the plugin
+
+    a. Clone into `$ZSH_CUSTOM/plugins/zlong_alert`.
+
+    or
+
+    b. if on archlinux you can use this [aur](https://aur.archlinux.org/packages/zlong-alert-git) package
+
 2. Add `zlong_alert` to `plugins` in `.zshrc`.
 
 ### Zim
