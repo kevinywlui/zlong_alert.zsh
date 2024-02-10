@@ -31,17 +31,18 @@ fi
 (( ${+zlong_ignorespace} )) || zlong_ignorespace='false'
 
 # Define a custom message to display
-(( ${+zlong_message} )) || zlong_message='"Done: $cmd Time: $ftime"'
+(( ${+zlong_message} )) || zlong_message='"Done: $cmd Time: $ftime with status $cmd_status"'
 
 # Define the alerting function, do the text processing here
 zlong_alert_func() {
     local cmd="$1"
     local secs="$2"
+    local cmd_status="$3"
     local ftime="$(printf '%dh:%dm:%ds\n' $(($secs / 3600)) $(($secs % 3600 / 60)) $(($secs % 60)))"
     if [[ "$zlong_internal_send_notifications" != false ]]; then
         # Find and use the correct notification command based on OS name
         if [[ "$OSTYPE" == "linux-gnu"* ]]; then
-	    eval notify-send $zlong_message
+            eval notify-send $zlong_message
         elif [[ "$OSTYPE" == "darwin"* ]]; then
             (alerter -timeout 3 -message $zlong_message &>/dev/null &)
         fi
@@ -65,6 +66,7 @@ zlong_alert_pre() {
 }
 
 zlong_alert_post() {
+    local -i cmd_exit_status=$?
     local duration=$(($EPOCHSECONDS - ${zlong_timestamp-$EPOCHSECONDS}))
     local lasted_long=$(($duration - $zlong_duration))
     local cmd_head
@@ -83,7 +85,7 @@ zlong_alert_post() {
 
     # Notify only if delay > $zlong_duration and command not ignored
     if [[ $lasted_long -gt 0 && ! -z $last_cmd_no_pfx && ! "$zlong_ignore_cmds" =~ "(^|[[:space:]])${(q)cmd_head}([[:space:]]|$)" ]]; then
-        zlong_alert_func "$zlong_last_cmd" "$duration"
+        zlong_alert_func "$zlong_last_cmd" "$duration" "$cmd_exit_status"
     fi
     zlong_last_cmd=''
 }

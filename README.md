@@ -58,7 +58,7 @@ There are 7 variables you can set that will alter the behavior this script.
 - `zlong_send_notifications` (default: `true`): whether to send notifications.
 - `zlong_terminal_bell` (default: `true`): whether to enable the terminal bell.
 - `zlong_ignorespace` (default: `false`): whether to ignore commands with a leading space
-- `zlong_message` (default: `'"Done: $cmd Time: $ftime"'`): define a custom message to display
+- `zlong_message` (default: `'"Done: $cmd Time: $ftime with status $cmd_status"'`): define a custom message to display
 
 For example, adding the following anywhere in your `.zshrc`
 ```bash
@@ -75,7 +75,7 @@ pacman yay`.
 `zlong_message` requires very specific syntax in order to function correctly.
 Arguments passed must be wrapped in single quotes and then doubles quotes in order
 for the variables to be passed in correctly to the evaluation function. Currently,
-the variables `$cmd` and `$ftime` are available to be included in your `zlong_message`
+the variables `$cmd`, `$cmd_status` and `$ftime` are available to be included in your `zlong_message`
 definition. Some notification clients (i.e. notify-send) allow both a heading and
 a body message to be passed. Examples of how to do so are below:
 
